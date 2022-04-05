@@ -1,0 +1,14 @@
+# перед запускком необходимо выполнить > touch chekhov.txt
+
+services:
+  app:
+    image: docker_quest:latest
+    build:
+      .
+    restart: always
+    ports:
+      - 8000:8000
+    environment:
+      SECRET_KEY: Watson
+    volumes:
+      - ./chekhov.txt:/code/app/files
