@@ -22,11 +22,12 @@ COPY app/services.py /code/
 COPY app/static/step1.html /code/
 COPY app/static/step2.html /code/
 COPY app/static/step3.html /code/
-COPY app/files/answer.txt /files/
+COPY app/files/answer.txt /code/app/files/
 
 RUN poetry config virtualenvs.create false \
   && poetry install $(test "$FASTAPI_ENV" == production && echo "--no-dev") --no-interaction --no-ansi
-CMD ["python", "app/services.py"]
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["python", "/code/app/services.py"]
 
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
+COPY crypto.key /code/
 COPY . /code
